@@ -1,15 +1,17 @@
 Racket = {}
 Racket.__index = Racket
 
-function Racket:create(location, auto)
+function Racket:create(location, auto, img)
     local racket = {}
     setmetatable(racket, Racket)
     racket.location = location 
     racket.auto = auto 
     racket.velocity = Vector:create(0, 50)
     racket.acceleration = Vector:create(0, 1)
-    racket.force = 7
-    racket.size = Vector:create(5, 100)
+    racket.force = 10
+    racket.size = Vector:create(20, 100)
+    racket.img = img
+    print(racket.img)
     return racket
 end
 
@@ -22,12 +24,7 @@ end
 function Racket:draw()
     r, g, b = love.graphics.getColor()
 
-    if self.auto then
-        love.graphics.setColor(1, 0, 0)
-    else
-        love.graphics.setColor(1, 1, 1)
-    end
-    love.graphics.rectangle("fill", self.location.x, self.location.y, self.size.x, self.size.y)
+    love.graphics.draw(self.img, self.location.x, self.location.y, 0, 1/7)
 
     love.graphics.setColor(r, g, b)
 end

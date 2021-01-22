@@ -3,21 +3,21 @@ require("mover")
 require("racket")
 
 function love.load ()
+    background = love.graphics.newImage("resources/Background.png")
     love.graphics.setNewFont("resources/Atari.ttf", 15)
     width = love.graphics.getWidth()
     height = love.graphics.getHeight()
 
     location = Vector:create(width - 40, height/2 - 50)
-    comp = Racket:create(location, true)
+    img = love.graphics.newImage("resources/Stick01.png")
+    comp = Racket:create(location, true, img)
 
     location = Vector:create(20, height/2 - 50)
-    player = Racket:create(location, false)
+    img = love.graphics.newImage("resources/Stick.png")
+    player = Racket:create(location, false, img)
 
     location = Vector:create(width/2, height/2)
-    ball = Mover:create(location)
-
-    comp_points = 0
-    player_points = 0
+    ball = Mover:create(location, img)
 
 end
 
@@ -29,16 +29,6 @@ function love.update()
     if love.keyboard.isDown("down") then
         player.location.y = player.location.y + 10
     end 
-    
-    -- if ball.location.x < ball.size then
-    --     player_points = player_points + 1
-    --     ball.velocity = Vector:create(5, 5)
-    -- end
-
-    -- if ball.location.x >= width - ball.size then 
-    --     comp_points = comp_points + 1
-    --     ball.velocity = Vector:create(5, 5)
-    -- end
 
 
     
@@ -60,12 +50,14 @@ function love.update()
 end
 
 function love.draw()
-    if comp_points >= 9 then
-        love.graphics.print("You win!", width / 2, height / 2, 0, 2, 2)
-    elseif player_points >= 9 then 
-        love.graphics.print("You win!", width / 2, height / 2, 0, 2, 2)
+    love.graphics.draw(background, 0, 0)
+    if ball.comp >= 9 then
+        love.graphics.print("You lose!", width / 2 - 100, height / 2, 0, 1, 2)
+    elseif ball.player >= 9 then 
+        love.graphics.print("You win!", width / 2 - 100, height / 2, 0, 1, 2)
     else
-        love.graphics.print("your score " .. player_points)
+        love.graphics.print("your score " .. ball.player, 0, 0)
+        love.graphics.print("computer score " .. ball.comp, 0, 20)
         player:draw()
         ball:draw()
         comp:draw()

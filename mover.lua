@@ -7,6 +7,8 @@ function Mover:create(location)
     mover.location = location
     mover.size = 10 
     mover.velocity = Vector:create(5, 5) 
+    mover.player = 0
+    mover.comp = 0
 
     return mover
 end
@@ -19,9 +21,11 @@ function Mover:checkBounders()
     if self.location.x > width - self.size then 
         self.location.x = width - self.size 
         self.velocity.x = -1 * self.velocity.x
+        self.player = self.player + 1
     elseif self.location.x < self.size then 
         self.location.x = self.size
         self.velocity.x = -1 * self.velocity.x
+        self.comp = self.comp + 1
     end
     
     if self.location.y > height - self.size then 
@@ -34,10 +38,10 @@ function Mover:checkBounders()
 end
 
 function Mover:crossCheck(object) 
-    if (self.location.x < object.size.x + 20) and (self.location.x > 20) and (self.location.y < object.location.y + object.size.y) and (self.location.y > object.location.y) then
-        self.location.x = 20 + object.size.x
+    if ((self.location.x < object.img:getWidth() / 4) and (self.location.x > 20) and (self.location.y < object.location.y + object.img:getHeight() / 4 ) and (self.location.y > object.location.y))  
+    then
+        self.location.x = object.img:getWidth() / 4 
         self.velocity.x = -1 * self.velocity.x
-        -- count = count + 1
         self.velocity.x = self.velocity.x + 1
         self.velocity.y = self.velocity.y + 1
     end
