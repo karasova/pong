@@ -38,13 +38,27 @@ function Mover:checkBounders()
 end
 
 function Mover:crossCheck(object) 
-    if ((self.location.x < object.img:getWidth() / 4) and (self.location.x > 20) and (self.location.y < object.location.y + object.img:getHeight() / 4 ) and (self.location.y > object.location.y))  
+    if ((self.location.x < object.img:getWidth() / 4) and 
+    (self.location.x > 20) and
+     (self.location.y < object.location.y + object.img:getHeight() / 4 ) and 
+     (self.location.y > object.location.y))  
     then
         self.location.x = object.img:getWidth() / 4 
         self.velocity.x = -1 * self.velocity.x
         self.velocity.x = self.velocity.x + 1
         self.velocity.y = self.velocity.y + 1
     end
+
+    if ((self.location.x > width - (object.img:getWidth() / 4))     and
+    (self.location.x < width - 20) and 
+   (self.location.y < object.location.y + object.img:getHeight() / 4 ) and
+    (self.location.y > object.location.y)) then 
+        self.location.x = width - (object.img:getWidth() / 4)
+        self.velocity.x = -1 * self.velocity.x
+        self.velocity.x = self.velocity.x + 1
+        self.velocity.y = self.velocity.y + 1
+    end
+
 end
 
 function Mover:draw()

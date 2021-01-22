@@ -28,18 +28,14 @@ function love.update()
 
     if love.keyboard.isDown("down") then
         player.location.y = player.location.y + 10
-    end 
-
-
-    
+    end     
 
     ball:checkBounders()
     player:checkBounders()
     comp:checkBounders()
 
-    ball:crossCheck(player) 
-    ball:crossCheck(comp)  
-    
+    ball:crossCheck(player, 1) 
+    ball:crossCheck(comp, 0)    
 
     
     comp:update()
