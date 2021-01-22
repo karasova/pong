@@ -34,8 +34,8 @@ function love.update()
     player:checkBounders()
     comp:checkBounders()
 
-    ball:crossCheck(player, 1) 
-    ball:crossCheck(comp, 0)    
+    ball:crossCheck(player) 
+    ball:crossCheck(comp)    
 
     
     comp:update()
